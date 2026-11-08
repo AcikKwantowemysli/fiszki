@@ -1,415 +1,201 @@
-# Pełny kod HTML – wszystkie słówka
-
-```html
 <!DOCTYPE html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fiszki Niemiecki</title>
-
+<title>Mein Zimmer – notatki i ćwiczenia</title>
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f4f4;
-  margin:0;
-  padding:20px;
-  text-align:center;
-}
-
-h1{
-  color:#333;
-}
-
-.toolbar{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-button, select{
-  padding:10px 14px;
-  border:none;
-  border-radius:10px;
-  background:#6c63ff;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-
-#card{
-  background:white;
-  max-width:700px;
-  margin:auto;
-  padding:40px 20px;
-  border-radius:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-  min-height:150px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  cursor:pointer;
-  user-select:none;
-  touch-action:manipulation;
-}
-
-.small{
-  font-size:18px;
-  color:#666;
-  margin-top:10px;
-}
-
-#controls{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-}
-
-#quiz, #list{
-  max-width:700px;
-  margin:20px auto;
-  background:white;
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-#quiz input{
-  width:90%;
-  padding:12px;
-  font-size:16px;
-  margin-top:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-}
-
-ul{
-  text-align:left;
-}
-
-@media(max-width:600px){
-
-  #card{
-    font-size:22px;
-    padding:30px 15px;
-  }
-
-  button, select{
-    width:100%;
-    font-size:15px;
-  }
-
-  .toolbar{
-    flex-direction:column;
-  }
-}
+:root{--bg:#f4f6fb;--card:#fff;--ink:#202638;--muted:#667085;--accent:#5367d8;--soft:#edf0ff;--good:#16834a;--bad:#c0392b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+header{background:linear-gradient(135deg,#3f51b5,#7886e8);color:white;padding:42px 20px;text-align:center}
+header h1{margin:0 0 8px;font-size:clamp(2rem,5vw,3rem)}
+header p{margin:0;opacity:.94}
+main{max-width:1000px;margin:26px auto;padding:0 16px 50px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+nav a{background:white;color:var(--accent);padding:9px 14px;border-radius:999px;text-decoration:none;font-weight:650;box-shadow:0 2px 8px #1d2b5510}
+section,.panel{background:var(--card);border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 5px 20px #1d2b550b}
+h2{margin:0 0 14px;color:#3444a8}
+h3{margin:18px 0 8px}
+table{width:100%;border-collapse:collapse;margin:10px 0 16px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid #e8eaf1}
+th{background:var(--soft);color:#303f9f}
+.note{background:#f0f3ff;border-left:4px solid var(--accent);padding:12px 15px;border-radius:8px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.tile{background:#f7f8fc;border:1px solid #e9ebf3;border-radius:12px;padding:13px}
+.question{padding:14px 0;border-bottom:1px solid #eceef4}
+.question:last-child{border:0}
+label{display:block;margin:6px 0}
+input[type=text],select,textarea{width:100%;max-width:520px;padding:10px 12px;border:1px solid #cbd1df;border-radius:9px;font:inherit;background:white}
+textarea{min-height:90px}
+button{border:0;background:var(--accent);color:white;padding:10px 16px;border-radius:9px;font:inherit;font-weight:650;cursor:pointer;margin:8px 6px 0 0}
+button.secondary{background:#e9ecff;color:#3444a8}
+.result{font-weight:700;margin-top:12px}
+.good{color:var(--good)} .bad{color:var(--bad)}
+.small{color:var(--muted);font-size:.92rem}
+details{background:#f8f9fd;border-radius:10px;padding:10px 13px;margin-top:12px}
+summary{cursor:pointer;font-weight:650;color:#3444a8}
+footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:600px){section,.panel{padding:16px}th,td{padding:7px;font-size:.93rem}}
 </style>
 </head>
-
 <body>
+<header>
+  <h1>🇩🇪 Mein Zimmer</h1>
+  <p>Mój pokój – notatki, słówka i ćwiczenia z niemieckiego</p>
+</header>
+<main>
+<nav>
+  <a href="#slowka">Słówka</a><a href="#przyimki">Przyimki</a><a href="#dativ">Dativ</a><a href="#czasowniki">Czasowniki</a><a href="#zadania">Ćwiczenia</a><a href="#list">Przykładowy list</a>
+</nav>
 
-<h1>Fiszki Niemiecki</h1>
+<section id="slowka">
+<h2>1. Słówka – wyposażenie pokoju</h2>
+<table><thead><tr><th>Niemiecki</th><th>Polski</th></tr></thead><tbody>
+<tr><td>das Bett</td><td>łóżko</td></tr><tr><td>der Schreibtisch</td><td>biurko</td></tr>
+<tr><td>der Tisch</td><td>stół</td></tr><tr><td>der Stuhl</td><td>krzesło</td></tr>
+<tr><td>der Schrank</td><td>szafa</td></tr><tr><td>der Kleiderschrank</td><td>szafa na ubrania</td></tr>
+<tr><td>das Regal</td><td>regał, półka</td></tr><tr><td>die Kommode</td><td>komoda</td></tr>
+<tr><td>der Nachttisch</td><td>stolik nocny</td></tr><tr><td>das Sofa</td><td>sofa</td></tr>
+<tr><td>der Sessel</td><td>fotel</td></tr><tr><td>der Hocker</td><td>taboret</td></tr>
+<tr><td>die Bank</td><td>ławka</td></tr><tr><td>das Bücherregal</td><td>regał na książki</td></tr>
+<tr><td>die Schublade</td><td>szuflada</td></tr><tr><td>der Schreibtischstuhl</td><td>krzesło biurowe</td></tr>
+<tr><td>der Teppich</td><td>dywan</td></tr><tr><td>die Lampe</td><td>lampa</td></tr>
+<tr><td>der Spiegel</td><td>lustro</td></tr><tr><td>das Bild</td><td>obraz</td></tr>
+<tr><td>das Poster</td><td>plakat</td></tr><tr><td>die Uhr</td><td>zegar</td></tr>
+<tr><td>die Gardine</td><td>firanka</td></tr><tr><td>der Vorhang</td><td>zasłona</td></tr>
+<tr><td>das Fenster</td><td>okno</td></tr><tr><td>die Tür</td><td>drzwi</td></tr>
+<tr><td>die Wand</td><td>ściana</td></tr><tr><td>der Boden</td><td>podłoga</td></tr>
+<tr><td>die Decke</td><td>sufit</td></tr><tr><td>das Kissen</td><td>poduszka</td></tr>
+<tr><td>die Bettdecke</td><td>kołdra</td></tr><tr><td>die Pflanze</td><td>roślina</td></tr>
+<tr><td>der Mülleimer</td><td>kosz na śmieci</td></tr><tr><td>der Fernseher</td><td>telewizor</td></tr>
+<tr><td>der Computer</td><td>komputer</td></tr><tr><td>der Laptop</td><td>laptop</td></tr>
+</tbody></table>
+</section>
 
-<div class="toolbar">
+<section id="przyimki">
+<h2>2. Przyimki miejsca – Wo? (Gdzie?)</h2>
+<table><thead><tr><th>Niemiecki</th><th>Polski</th><th>Przykład</th></tr></thead><tbody>
+<tr><td>auf</td><td>na</td><td>auf dem Tisch – na stole</td></tr>
+<tr><td>unter</td><td>pod</td><td>unter dem Bett – pod łóżkiem</td></tr>
+<tr><td>neben</td><td>obok</td><td>neben dem Schrank – obok szafy</td></tr>
+<tr><td>vor</td><td>przed</td><td>vor dem Fenster – przed oknem</td></tr>
+<tr><td>hinter</td><td>za</td><td>hinter der Tür – za drzwiami</td></tr>
+<tr><td>zwischen</td><td>między</td><td>zwischen dem Bett und dem Schrank</td></tr>
+<tr><td>an</td><td>przy, na</td><td>an der Wand – na ścianie</td></tr>
+<tr><td>in</td><td>w</td><td>im Zimmer – w pokoju</td></tr>
+<tr><td>über</td><td>nad</td><td>über dem Sofa – nad sofą</td></tr>
+<tr><td>außer</td><td>poza</td><td>außer dem Zimmer – poza pokojem</td></tr>
+</tbody></table>
+<div class="note"><b>Zapamiętaj:</b> gdy pytamy <b>Wo? (Gdzie?)</b> i mówimy o miejscu, w tym temacie używamy Dativu.</div>
+</section>
 
-<button onclick="setMode('flashcards')">Fiszki</button>
-<button onclick="setMode('quiz')">Quiz</button>
-<button onclick="setMode('list')">Lista</button>
-<button onclick="toggleDirection()">DE → PL</button>
-
-<select id="lessonFilter" onchange="applyFilter()">
-<option value="all">Wszystkie lekcje</option>
-<option value="1">Lektion 1</option>
-<option value="2">Lektion 2</option>
-<option value="3">Lektion 3</option>
-<option value="4">Lektion 4</option>
-<option value="5">Lektion 5</option>
-<option value="6">Lektion 6</option>
-</select>
-
+<section id="dativ">
+<h2>3. Dativ – celownik</h2>
+<p>Rodzajnik zmienia się w następujący sposób:</p>
+<table><thead><tr><th>Rodzaj</th><th>Mianownik</th><th>Dativ</th></tr></thead><tbody>
+<tr><td>męski</td><td>der</td><td><b>dem</b></td></tr><tr><td>żeński</td><td>die</td><td><b>der</b></td></tr>
+<tr><td>nijaki</td><td>das</td><td><b>dem</b></td></tr><tr><td>mnoga</td><td>die</td><td><b>den</b></td></tr>
+</tbody></table>
+<div class="note"><b>Hasło do zapamiętania:</b> DEM – DER – DEM – DEN.</div>
+<div class="grid">
+<div class="tile">neben <b>dem</b> Bett<br><span class="small">obok łóżka</span></div>
+<div class="tile">an <b>der</b> Wand<br><span class="small">na ścianie</span></div>
+<div class="tile">unter <b>dem</b> Tisch<br><span class="small">pod stołem</span></div>
+<div class="tile">zwischen <b>den</b> Stühlen<br><span class="small">między krzesłami</span></div>
 </div>
+<p class="small">Uwaga: w liczbie mnogiej w Dativie często dodajemy do rzeczownika końcówkę -n, np. mit den Stühlen.</p>
+</section>
 
-<div id="card">Kliknij aby zobaczyć tłumaczenie</div>
+<section id="czasowniki">
+<h2>4. Czasowniki – położenie</h2>
+<table><thead><tr><th>Niemiecki</th><th>Polski</th><th>Przykład</th></tr></thead><tbody>
+<tr><td>stehen</td><td>stać</td><td>Der Schrank steht. – Szafa stoi.</td></tr>
+<tr><td>liegen</td><td>leżeć</td><td>Das Buch liegt. – Książka leży.</td></tr>
+<tr><td>hängen</td><td>wisieć</td><td>Das Bild hängt. – Obraz wisi.</td></tr>
+<tr><td>sitzen</td><td>siedzieć</td><td>Ich sitze. – Siedzę.</td></tr>
+</tbody></table>
+</section>
 
-<div id="controls">
-<button onclick="prevCard()">◀ Poprzednia</button>
-<button onclick="nextCard()">Następna ▶</button>
+<section id="zadania">
+<h2>5. Ćwiczenia</h2>
+<p class="small">Wpisz odpowiedzi, a następnie kliknij „Sprawdź”. Przy zadaniu wyboru zaznacz odpowiedź.</p>
+<h3>Zadanie 1. Wybierz poprawny rodzajnik w Dativie</h3>
+<div id="quiz1"></div>
+<button onclick="checkQuiz1()">Sprawdź zadanie 1</button><button class="secondary" onclick="resetQuiz1()">Wyczyść</button>
+<div id="result1" class="result" aria-live="polite"></div>
+
+<h3>Zadanie 2. Przetłumacz słówka na niemiecki</h3>
+<div id="quiz2"></div>
+<button onclick="checkQuiz2()">Sprawdź zadanie 2</button><button class="secondary" onclick="resetQuiz2()">Wyczyść</button>
+<div id="result2" class="result" aria-live="polite"></div>
+
+<h3>Zadanie 3. Uzupełnij czasownik: stehen, liegen, hängen lub sitzen</h3>
+<div id="quiz3"></div>
+<button onclick="checkQuiz3()">Sprawdź zadanie 3</button><button class="secondary" onclick="resetQuiz3()">Wyczyść</button>
+<div id="result3" class="result" aria-live="polite"></div>
+
+<h3>Zadanie 4. Przetłumacz zdania na niemiecki</h3>
+<div class="question">1. Biurko stoi obok okna.<br><input id="s1" type="text" placeholder="Wpisz zdanie po niemiecku"></div>
+<div class="question">2. Na ścianie wisi plakat.<br><input id="s2" type="text" placeholder="Wpisz zdanie po niemiecku"></div>
+<div class="question">3. Dywan leży pod stołem.<br><input id="s3" type="text" placeholder="Wpisz zdanie po niemiecku"></div>
+<button onclick="checkSentences()">Pokaż przykładowe odpowiedzi</button>
+<div id="result4" class="result" aria-live="polite"></div>
+
+<details><summary>Pokaż klucz odpowiedzi do zadań 1–3</summary>
+<p><b>Zadanie 1:</b> dem, der, dem, den, dem, der.</p>
+<p><b>Zadanie 2:</b> das Bett, der Schreibtisch, der Teppich, die Lampe, das Fenster, der Schrank.</p>
+<p><b>Zadanie 3:</b> steht, liegt, hängt, sitze, steht.</p>
+</details>
+</section>
+
+<section id="list">
+<h2>6. Przykładowy list – opis pokoju i zmiany</h2>
+<div class="note">
+<b>Liebe Anna,</b><br><br>
+wie geht es dir? Ich möchte dir mein Zimmer beschreiben.<br><br>
+Mein Zimmer ist nicht sehr groß, aber gemütlich. In meinem Zimmer steht ein großes Bett. Neben dem Bett steht ein Nachttisch. Mein Schreibtisch steht neben dem Fenster. Auf dem Schreibtisch steht eine Lampe und liegt ein Buch. An der Wand hängt ein Poster. Neben dem Schreibtisch steht ein Schrank. Auf dem Boden liegt ein Teppich.<br><br>
+Ich möchte mein Zimmer verändern. Ich möchte die Wände in einer anderen Farbe streichen. Ich möchte auch ein größeres Bett und einen neuen Schreibtisch haben. Außerdem möchte ich mehr Pflanzen und Bilder kaufen.<br><br>
+Und wie sieht dein Zimmer aus?<br><br>
+<b>Liebe Grüße<br>[Twoje imię]</b>
 </div>
-
-<div id="quiz" style="display:none">
-<div id="quizQuestion"></div>
-<input id="quizInput" placeholder="Wpisz odpowiedź">
-<br><br>
-<button onclick="checkAnswer()">Sprawdź</button>
-<button onclick="newQuiz()">Pomiń</button>
-<div id="quizFeedback"></div>
-</div>
-
-<div id="list" style="display:none"></div>
-
+<details><summary>Pokaż tłumaczenie listu</summary>
+<p>Droga Anno, jak się masz? Chciałbym opisać ci mój pokój.</p>
+<p>Mój pokój nie jest bardzo duży, ale jest przytulny. W moim pokoju stoi duże łóżko. Obok łóżka stoi stolik nocny. Moje biurko stoi obok okna. Na biurku stoi lampa i leży książka. Na ścianie wisi plakat. Obok biurka stoi szafa. Na podłodze leży dywan.</p>
+<p>Chciałbym zmienić mój pokój. Chciałbym pomalować ściany na inny kolor. Chciałbym też mieć większe łóżko i nowe biurko. Dodatkowo chciałbym kupić więcej roślin i obrazów.</p>
+<p>A jak wygląda twój pokój? Pozdrawiam.</p>
+</details>
+</section>
+<footer>Powodzenia w nauce! Viel Erfolg! 🇩🇪</footer>
+</main>
 <script>
-
-const fiszki = [
-
-// Lektion 1
-{de:"an einem Ort", pl:"w jednym miejscu", lesson:1},
-{de:"anonym", pl:"anonimowy", lesson:1},
-{de:"die Atmosphäre", pl:"atmosfera", lesson:1},
-{de:"beim Einkaufen", pl:"podczas robienia zakupów", lesson:1},
-{de:"Einkäufe machen", pl:"robić zakupy", lesson:1},
-{de:"der Einkaufsbummel", pl:"spacer połączony z zakupami", lesson:1},
-{de:"freundlich", pl:"miły", lesson:1},
-{de:"das Geschäft", pl:"sklep", lesson:1},
-{de:"in der Nähe", pl:"w pobliżu", lesson:1},
-{de:"der Kunde", pl:"klient", lesson:1},
-{de:"der Laden", pl:"sklep", lesson:1},
-{de:"das Lieblingsgeschäft", pl:"ulubiony sklep", lesson:1},
-{de:"die Qualität", pl:"jakość", lesson:1},
-{de:"Schlange stehen", pl:"stać w kolejce", lesson:1},
-{de:"das Sonderangebot", pl:"oferta specjalna", lesson:1},
-{de:"Spaß machen", pl:"sprawiać przyjemność", lesson:1},
-{de:"unterstützen", pl:"wspierać", lesson:1},
-{de:"Zeit sparen", pl:"oszczędzać czas", lesson:1},
-
-// Lektion 2
-{de:"achten auf", pl:"uważać na", lesson:2},
-{de:"ausgeben für", pl:"wydawać na", lesson:2},
-{de:"der Ausverkauf", pl:"wyprzedaż", lesson:2},
-{de:"bezahlen", pl:"płacić", lesson:2},
-{de:"die Einkaufsliste", pl:"lista zakupów", lesson:2},
-{de:"das Einkaufszentrum", pl:"centrum handlowe", lesson:2},
-{de:"etwas auf Raten kaufen", pl:"kupować coś na raty", lesson:2},
-{de:"der Preis", pl:"cena", lesson:2},
-{de:"der Rabattgutschein", pl:"kupon rabatowy", lesson:2},
-{de:"reduzieren", pl:"obniżać", lesson:2},
-{de:"das Schaufenster", pl:"wystawa", lesson:2},
-{de:"der Schlussverkauf", pl:"wyprzedaż", lesson:2},
-{de:"das Schnäppchen", pl:"okazja", lesson:2},
-{de:"shoppen gehen", pl:"iść na zakupy", lesson:2},
-{de:"sich richten nach", pl:"kierować się czymś", lesson:2},
-{de:"der Sonderpreis", pl:"cena promocyjna", lesson:2},
-{de:"sparen", pl:"oszczędzać", lesson:2},
-{de:"vergleichen", pl:"porównywać", lesson:2},
-{de:"verschwenden", pl:"trwonić", lesson:2},
-{de:"die Werbung", pl:"reklama", lesson:2},
-
-// Lektion 3
-{de:"aussehen", pl:"wyglądać", lesson:3},
-{de:"beraten", pl:"doradzać", lesson:3},
-{de:"brauchen", pl:"potrzebować", lesson:3},
-{de:"der Einkauf", pl:"zakup", lesson:3},
-{de:"empfehlen", pl:"polecać", lesson:3},
-{de:"gefallen", pl:"podobać się", lesson:3},
-{de:"die Kleidung", pl:"ubiór", lesson:3},
-{de:"nehmen", pl:"brać", lesson:3},
-{de:"passen", pl:"pasować", lesson:3},
-{de:"das Produkt", pl:"produkt", lesson:3},
-{de:"sich auskennen", pl:"znać się", lesson:3},
-{de:"sich entscheiden für", pl:"decydować się na", lesson:3},
-{de:"zum Kauf bewegen", pl:"zachęcać do kupna", lesson:3},
-{de:"zum Kauf überzeugen", pl:"przekonywać do kupna", lesson:3},
-
-// Lektion 4
-{de:"billig", pl:"tani", lesson:4},
-{de:"das Geld nicht wert sein", pl:"nie być wart swojej ceny", lesson:4},
-{de:"die Enttäuschung", pl:"rozczarowanie", lesson:4},
-{de:"die Erfahrung", pl:"doświadczenie", lesson:4},
-{de:"hoch", pl:"wysoki", lesson:4},
-{de:"niedrig", pl:"niski", lesson:4},
-{de:"schlecht", pl:"zły", lesson:4},
-{de:"sich lohnen", pl:"opłacać się", lesson:4},
-{de:"teuer", pl:"drogi", lesson:4},
-{de:"die Verpackung", pl:"opakowanie", lesson:4},
-{de:"vom Kauf abhalten", pl:"odradzać zakup", lesson:4},
-{de:"von guter Qualität", pl:"dobrej jakości", lesson:4},
-{de:"zu viel kosten", pl:"kosztować zbyt dużo", lesson:4},
-
-// Lektion 5
-{de:"benutzen", pl:"korzystać z", lesson:5},
-{de:"beschädigt", pl:"uszkodzony", lesson:5},
-{de:"bestellen", pl:"zamawiać", lesson:5},
-{de:"erkennen", pl:"rozpoznawać", lesson:5},
-{de:"funktionieren", pl:"działać", lesson:5},
-{de:"der Garantieschein", pl:"karta gwarancyjna", lesson:5},
-{de:"das Gerät", pl:"urządzenie", lesson:5},
-{de:"kaputt", pl:"popsuty", lesson:5},
-{de:"kaufen", pl:"kupować", lesson:5},
-{de:"die Lieferung", pl:"dostawa", lesson:5},
-{de:"der Mangel", pl:"wada", lesson:5},
-{de:"reklamieren", pl:"reklamować", lesson:5},
-{de:"die Reparatur", pl:"naprawa", lesson:5},
-{de:"überprüfen", pl:"sprawdzać", lesson:5},
-{de:"umtauschen", pl:"wymieniać", lesson:5},
-{de:"die Ware", pl:"towar", lesson:5},
-{de:"zurückerstatten", pl:"zwracać pieniądze", lesson:5},
-{de:"zurückschicken", pl:"odsyłać", lesson:5},
-
-// Lektion 6
-{de:"abstoßend", pl:"odpychający", lesson:6},
-{de:"aggressiv", pl:"agresywny", lesson:6},
-{de:"auf etwas aufmerksam machen", pl:"zwracać uwagę", lesson:6},
-{de:"auf Interesse stoßen", pl:"wzbudzać zainteresowanie", lesson:6},
-{de:"auffällig", pl:"rzucający się w oczy", lesson:6},
-{de:"Bedürfnisse wecken", pl:"budzić potrzeby", lesson:6},
-{de:"die Kunden informieren", pl:"informować klientów", lesson:6},
-{de:"effektiv", pl:"skuteczny", lesson:6},
-{de:"der Eindruck", pl:"wrażenie", lesson:6},
-{de:"geschmacklos", pl:"bez gustu", lesson:6},
-{de:"informieren", pl:"informować", lesson:6},
-{de:"manipulieren", pl:"manipulować", lesson:6},
-{de:"schockieren", pl:"szokować", lesson:6},
-{de:"überraschen", pl:"zaskakiwać", lesson:6},
-{de:"überraschend", pl:"zaskakujący", lesson:6},
-{de:"die Wirkung", pl:"działanie", lesson:6},
-{de:"witzig", pl:"śmieszny", lesson:6},
-{de:"zum Kauf bewegen", pl:"zachęcać do kupna", lesson:6}
-
+const q1=[
+ ["neben ___ Bett",["dem","der","den"],0],
+ ["an ___ Wand",["dem","der","den"],1],
+ ["unter ___ Tisch",["der","dem","den"],1],
+ ["zwischen ___ Stühlen",["dem","der","den"],2],
+ ["vor ___ Fenster",["dem","der","den"],0],
+ ["neben ___ Kommode",["dem","der","den"],1]
 ];
-
-let filtered = [...fiszki];
-let history = [];
-let currentIndex = 0;
-let showAnswer = false;
-let mode = 'flashcards';
-let direction = 'DE2PL';
-
-const cardEl = document.getElementById('card');
-const listEl = document.getElementById('list');
-const quizEl = document.getElementById('quiz');
-const quizQuestionEl = document.getElementById('quizQuestion');
-const quizInputEl = document.getElementById('quizInput');
-const quizFeedbackEl = document.getElementById('quizFeedback');
-
-function applyFilter(){
-const val = document.getElementById('lessonFilter').value;
-filtered = val === 'all'
-? [...fiszki]
-: fiszki.filter(f => String(f.lesson) === val);
-currentIndex = 0;
-renderCurrentCard();
-if(mode === 'list') renderList();
-}
-
-function setMode(m){
-mode = m;
-cardEl.style.display = 'none';
-quizEl.style.display = 'none';
-listEl.style.display = 'none';
-document.getElementById('controls').style.display = 'none';
-
-if(m === 'flashcards'){
-cardEl.style.display = 'flex';
-document.getElementById('controls').style.display = 'flex';
-renderCurrentCard();
-}
-
-if(m === 'quiz'){
-quizEl.style.display = 'block';
-newQuiz();
-}
-
-if(m === 'list'){
-listEl.style.display = 'block';
-renderList();
-}
-}
-
-function renderCurrentCard(){
-if(filtered.length === 0){
-cardEl.textContent = 'Brak słówek';
-return;
-}
-
-const item = filtered[currentIndex];
-const front = direction === 'DE2PL' ? item.de : item.pl;
-const back = direction === 'DE2PL' ? item.pl : item.de;
-
-cardEl.innerHTML = `
-<div>
-<div>${front}</div>
-${showAnswer
-? `<div class="small">${back}</div>`
-: `<div class="small">Kliknij aby pokazać tłumaczenie</div>`}
-</div>`;
-}
-
-function toggleDirection(){
-direction = direction === 'DE2PL' ? 'PL2DE' : 'DE2PL';
-const btn = document.querySelector('button[onclick="toggleDirection()"]');
-btn.textContent = direction === 'DE2PL' ? 'DE → PL' : 'PL → DE';
-renderCurrentCard();
-if(mode === 'quiz') newQuiz();
-}
-
-function nextCard(){
-history.push(currentIndex);
-currentIndex = Math.floor(Math.random()*filtered.length);
-showAnswer = false;
-renderCurrentCard();
-}
-
-function prevCard(){
-if(history.length > 0){
-currentIndex = history.pop();
-}
-showAnswer = false;
-renderCurrentCard();
-}
-
-cardEl.addEventListener('click', ()=>{
-showAnswer = !showAnswer;
-renderCurrentCard();
-});
-
-function newQuiz(){
-currentIndex = Math.floor(Math.random()*filtered.length);
-const item = filtered[currentIndex];
-
-quizQuestionEl.textContent = direction === 'DE2PL'
-? `Przetłumacz na polski: ${item.de}`
-: `Przetłumacz na niemiecki: ${item.pl}`;
-
-quizInputEl.value = '';
-quizFeedbackEl.textContent = '';
-}
-
-function normalize(s){
-return s.trim().toLowerCase().replace(/\s+/g,' ');
-}
-
-function checkAnswer(){
-const user = normalize(quizInputEl.value);
-const correct = direction === 'DE2PL'
-? normalize(filtered[currentIndex].pl)
-: normalize(filtered[currentIndex].de);
-
-if(user === correct){
-quizFeedbackEl.textContent = '✔️ Dobrze!';
-} else {
-quizFeedbackEl.textContent = `❌ Poprawna odpowiedź: ${direction === 'DE2PL' ? filtered[currentIndex].pl : filtered[currentIndex].de}`;
-}
-
-setTimeout(newQuiz, 1500);
-}
-
-function renderList(){
-let html = '<h2>Lista słówek</h2><ul>';
-filtered.forEach(f => {
-html += `<li><b>${f.de}</b> — ${f.pl}</li>`;
-});
-html += '</ul>';
-listEl.innerHTML = html;
-}
-
-applyFilter();
-setMode('flashcards');
-
+const q2=[["łóżko","das Bett"],["biurko","der Schreibtisch"],["dywan","der Teppich"],["lampa","die Lampe"],["okno","das Fenster"],["szafa","der Schrank"]];
+const q3=[
+ ["Der Schrank ___ neben dem Bett.",["steht","liegt","hängt","sitzt"],0],
+ ["Das Buch ___ auf dem Tisch.",["steht","liegt","hängt","sitzt"],1],
+ ["Das Poster ___ an der Wand.",["steht","liegt","hängt","sitzt"],2],
+ ["Ich ___ auf dem Stuhl.",["steht","liegt","hängt","sitze"],3],
+ ["Die Lampe ___ auf dem Nachttisch.",["steht","liegt","hängt","sitzt"],0]
+];
+function buildChoice(id,data){document.getElementById(id).innerHTML=data.map((q,i)=>`<div class="question"><b>${i+1}. ${q[0]}</b>${q[1].map((a,j)=>`<label><input type="radio" name="${id}_${i}" value="${j}"> ${a}</label>`).join("")}</div>`).join("")}
+buildChoice("quiz1",q1);buildChoice("quiz3",q3);
+document.getElementById("quiz2").innerHTML=q2.map((q,i)=>`<div class="question">${i+1}. ${q[0]}<br><input type="text" id="v${i}" placeholder="Po niemiecku"></div>`).join("");
+function checkChoices(data,id,resultId){let score=0,answered=0;data.forEach((q,i)=>{let el=document.querySelector(`input[name="${id}_${i}"]:checked`);if(el){answered++;if(+el.value===q[2])score++}});let r=document.getElementById(resultId);r.className="result "+(score===data.length?"good":"");r.textContent=`Wynik: ${score}/${data.length}. Odpowiedziano na ${answered}/${data.length} pytań.`}
+function checkQuiz1(){checkChoices(q1,"quiz1","result1")}
+function checkQuiz3(){checkChoices(q3,"quiz3","result3")}
+function resetQuiz1(){document.querySelectorAll('input[name^="quiz1_"]').forEach(x=>x.checked=false);document.getElementById("result1").textContent=""}
+function resetQuiz3(){document.querySelectorAll('input[name^="quiz3_"]').forEach(x=>x.checked=false);document.getElementById("result3").textContent=""}
+function norm(s){return s.toLowerCase().trim().replace(/[.!?,]/g,"").replace(/\s+/g," ")}
+function checkQuiz2(){let score=0;q2.forEach((q,i)=>{if(norm(document.getElementById("v"+i).value)===norm(q[1]))score++});let r=document.getElementById("result2");r.className="result "+(score===q2.length?"good":"");r.textContent=`Wynik: ${score}/${q2.length}. Poprawne odpowiedzi znajdziesz w kluczu poniżej.`}
+function checkSentences(){document.getElementById("result4").innerHTML="<b>Przykładowe odpowiedzi:</b><br>1. Der Schreibtisch steht neben dem Fenster.<br>2. An der Wand hängt ein Poster.<br>3. Der Teppich liegt unter dem Tisch."}
 </script>
-
 </body>
 </html>
-```
